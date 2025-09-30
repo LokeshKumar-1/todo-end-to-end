@@ -32,7 +32,7 @@ Thumbs.db
 *.sw?
 
 # Environment variables
-.env
+server/.env.development.local
 .env.*.local
 
 # client specific
