@@ -1,0 +1,1 @@
+export const {VITE_END_POINT, VITE_STORAGE_KEY} = import.meta.env
