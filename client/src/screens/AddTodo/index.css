@@ -1,0 +1,26 @@
+.add-parent-cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+}
+
+.add-todo-input {
+    height: 50px;
+    width: 50%;
+    padding: 8px;
+    outline: none;
+}
+
+.add-btn {
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    outline: none;
+    padding: 16px;
+    border-radius: 8px;
+    margin-left: 15px;
+}
