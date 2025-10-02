@@ -1,6 +1,8 @@
 import "./index.css"
 import AddTodo from "../AddTodo/index.jsx";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {deleteToken} from "../../api/storageService.js";
 
 const todoList = [
     {
@@ -41,8 +43,15 @@ const todoList = [
 ];
 
 const Dashboard = () => {
+    const navigate = useNavigate();
 
     const [listData, setListData] = useState(todoList)
+
+
+    const handleLogout = () => {
+        deleteToken()
+        navigate("/login")
+    }
 
     const renderListItem = (item) => {
         return (
@@ -60,7 +69,7 @@ const Dashboard = () => {
         <div className="dash-parent-cont">
             <div style={{display: "flex", justifyContent: 'center', alignItems: "center"}}>
                 <h1 style={{textAlign: "center", position: 'fixed'}}>My Todo</h1>
-                <button type="button" className="logout-btn">Logout</button>
+                <button type="button" className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
             <AddTodo/>
             <ul className="list-cont">

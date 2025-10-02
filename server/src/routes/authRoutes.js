@@ -1,10 +1,11 @@
 const express = require("express")
 const router = express.Router()
 
-const {signup, login} = require("../controllers/authController");
+const {signup, login} = require("../controllers/auth.controller");
+const {authMiddleware} = require("../middlewares/auth.middleware");
 
 
-router.get("/", (req, res) => {
+router.get("/", authMiddleware, (req, res) => {
     res.send("Auth route working!");
 });
 

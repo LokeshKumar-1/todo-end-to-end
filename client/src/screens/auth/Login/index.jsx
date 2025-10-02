@@ -15,8 +15,6 @@ const Login = () => {
         password: "",
     })
 
-    console.log(userInputs)
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log("Pressed")

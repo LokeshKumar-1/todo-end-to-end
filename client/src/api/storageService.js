@@ -10,7 +10,7 @@ export const storeToken = (token) => {
 
 export const getToken = () => {
     try {
-        return JSON.parse(localStorage.getItem(VITE_STORAGE_KEY))
+        return localStorage.getItem(VITE_STORAGE_KEY)
     } catch (e) {
         console.error(e)
         return null
