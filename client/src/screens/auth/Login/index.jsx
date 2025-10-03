@@ -29,7 +29,7 @@ const Login = () => {
         } else {
             if (postResponse) {
                 toast(postResponse?.message || "User Created Successfully!")
-                setInputMode("SignUp")
+                setInputMode("Login")
             }
         }
 
@@ -50,7 +50,7 @@ const Login = () => {
                            password: e.target.value
                        }))}/>
 
-                <button type={"submit"}>Login</button>
+                <button type={"submit"}>{inputMode === "Login" ? "Login" : "Create Account"}</button>
                 <div className="sign-up-container">
                     <p className="sign-up-text">Don't have an account?</p>
                     <button type={"button"}

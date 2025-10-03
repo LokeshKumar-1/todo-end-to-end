@@ -1,8 +1,9 @@
 import "./index.css"
 import AddTodo from "../AddTodo/index.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {deleteToken} from "../../api/storageService.js";
+import {deleteTodoService, getAllTodoService, updateTodoService} from "../../api/services/dash.service.js";
 
 const todoList = [
     {
@@ -46,21 +47,52 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     const [listData, setListData] = useState(todoList)
+    console.log(listData)
 
+
+    useEffect(() => {
+        getAllTodo()
+    }, []);
+
+    async function getAllTodo() {
+        const responseData = await getAllTodoService()
+        if (responseData) {
+            setListData(responseData || [])
+        }
+    }
 
     const handleLogout = () => {
         deleteToken()
         navigate("/login")
     }
 
+    const updateTodoHandler = async (selectedTodo) => {
+        const bodyContent = {
+            todoId: selectedTodo._id,
+            status: selectedTodo.status === "pending" ? "completed" : "pending",
+        }
+        const postResponse = await updateTodoService(bodyContent)
+        if (postResponse) {
+            await getAllTodo()
+        }
+    }
+
+    const deleteTodoHandler = async (selectedTodo) => {
+        const deleteResponse = await deleteTodoService(selectedTodo._id)
+        if (deleteResponse) {
+            await getAllTodo()
+        }
+    }
+
     const renderListItem = (item) => {
         return (
-            <li className="list-item" key={item?.id}>
+            <li className="list-item" key={item?._id}>
                 <div className="list-item-title">
-                    <input type={"checkbox"} checked={item?.status === "completed"}/>
+                    <input type={"checkbox"} checked={item?.status === "completed"}
+                           onChange={() => updateTodoHandler(item)}/>
                     <h2 style={{textDecoration: item?.status === "completed" ? "line-through" : "none"}}>{item?.title}</h2>
                 </div>
-                <button type={'button'} className="delete-btn">Delete</button>
+                <button type={'button'} className="delete-btn" onClick={() => deleteTodoHandler(item)}>Delete</button>
             </li>
         )
     }
@@ -71,7 +103,7 @@ const Dashboard = () => {
                 <h1 style={{textAlign: "center", position: 'fixed'}}>My Todo</h1>
                 <button type="button" className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
-            <AddTodo/>
+            <AddTodo getAllTodo={getAllTodo}/>
             <ul className="list-cont">
                 {listData.map(item => renderListItem((item)))}
             </ul>

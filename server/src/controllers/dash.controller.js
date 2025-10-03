@@ -10,7 +10,7 @@ exports.addTodo = async (req, res) => {
             return res.status(400).send({"message": "Please enter a title"})
         }
 
-        const isExistingTask = await AddTodo.findOne({title})
+        const isExistingTask = await AddTodo.findOne({title, userId: userDetails.id})
 
         if (isExistingTask) return res.status(400).json({message: "Task already exists"})
 

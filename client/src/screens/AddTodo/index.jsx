@@ -1,12 +1,20 @@
 import "./index.css"
 import {useState} from "react";
+import {addNewTodoService} from "../../api/services/dash.service.js";
 
-const AddTodo = () => {
+const AddTodo = ({getAllTodo}) => {
 
     const [newData, setNewData] = useState("");
 
     const addBtnEventHandler = async () => {
-        console.log("pressed")
+        const bodyContent = {
+            title: newData,
+        }
+        const postResponse = await addNewTodoService(bodyContent)
+        if (postResponse) {
+            await getAllTodo()
+        }
+        setNewData("")
     }
 
     return (

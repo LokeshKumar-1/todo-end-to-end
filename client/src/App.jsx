@@ -7,6 +7,7 @@ import Dashboard from "./screens/Dashboard/index.jsx";
 import AddTodo from "./screens/AddTodo/index.jsx";
 import GlobalPopup from "./components/popups/GlobalPopup.jsx";
 import PublicRoute from "./utils/PublicRoute/index.jsx";
+import {ToastContainer} from "react-toastify";
 
 
 function App() {
